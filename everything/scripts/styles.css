@@ -1,0 +1,481 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@1,300&display=swap');
+
+body, html {
+    padding: 0;
+    margin: 0;
+    --size--: 1.8rem;
+    --difference--: -20px;
+    --height-of-line--: 3.8rem;
+    --main-color--: rgb(242, 242, 227);
+    background-color: black; /*change to black for the homescreen only*/
+    font-family: 'Inria Serif', serif;
+}
+
+h3 {
+    margin-top: 20px;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    width: 100vw;
+    height: 15vh;
+    margin-top: 0;
+}
+
+input:focus {
+    border: 5px ridge rgb(240, 240, 240);
+}
+
+th {
+    padding: 5px;
+}
+
+table {
+    text-align: center;
+}
+
+.section {
+    position: relative;
+    padding-left: 10px;
+    min-height: 50vh;
+    margin: 0;
+    font-size: var(--size--);
+    padding-bottom: 1em;
+}
+
+.everything {
+    min-height: 85vh;
+    margin-bottom: 20px;
+    margin-left: 0;
+    height: 100%;
+    background: linear-gradient(35deg, rgb(218, 242, 218), rgb(238, 244, 235));
+}
+
+.first-bg, .second-bg {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.second-bg {
+    background: radial-gradient(rgb(238, 244, 235), rgb(218, 242, 218));
+}
+
+.first-bg {
+    background: linear-gradient(35deg, rgb(238, 244, 235), rgb(188, 222, 188));
+}
+
+.text-image {
+    display: grid;
+    grid-template-areas: 'text image';
+    column-gap: 10px;
+    margin-right: 2%;
+}
+
+.text-image-2 {
+    display: grid;
+    grid-template-areas: 'image text';
+    column-gap: 10px;
+    margin-right: 2%;
+    width: 100%;
+}
+
+.format-images {
+    width: 35vw;
+    height: 60vh;
+    border-radius: 10px;
+    grid-area: 'image';
+    margin-top: 22%;
+}
+
+.background-video {
+    position: absolute !important;
+    top: -200px;
+    left: 0;
+    width: 100vw;
+    height: 200%;
+    z-index: 0 !important;
+}
+
+.text {
+    grid-area: 'text';
+    font-size: 1.6rem;
+}
+
+.first-text {
+    text-align: justify !important;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.plan-info {
+    text-align: left !important;
+    font-size: 1.2rem;
+}
+
+.user-form {
+    display: flex;
+    font-size: 2rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 70vh;
+}
+
+.next-page {
+    top: calc(3 * var(--difference--));
+    background: radial-gradient(rgb(200, 241, 200), rgb(238, 244, 235));
+}
+
+.recipe-preview {
+    width: 15vw;
+    height: 42vh;
+}
+
+.recipe-preview img {
+    width: 100%;
+    height: 28vh;
+}
+
+.subtitle {
+    font-size: 3rem;
+    text-align: center;
+}
+
+.side-img {
+    width: 25vw;
+    border-radius: 10px;
+    border: 2px ridge green;
+}
+
+#calories-section, .next-page {
+    font-size: 1.4rem;
+    text-align: center
+}
+
+#calories-section {
+    top: calc(2 * var(--difference--));
+    background-color: var(--main-color--);
+    z-index: 1;
+}
+
+#parameters {
+    position: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 25vw;
+    border: 1px ridge black;
+    text-align: center;
+    padding-top: 16%;
+    grid-area: filtering;
+    font-size: 2rem;
+}
+
+#parameters input[type='checkbox'] {
+    transform: scale(1.1);
+}
+
+#intro {
+    color: white;
+    text-align: center;
+    top: calc(var(--difference--) * 0);
+    z-index: 1;
+}
+
+#intro div {
+    background-color: rgba(240, 240, 240, 0.65);
+    font-size: 1.2rem;
+    color: black;
+    margin: 0 auto;
+    width: 60vw;
+    margin-top: 100px;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+#intro * {
+    position: relative;
+}
+
+#com {
+    text-align: center;
+    background-color: rgb(231, 241, 200)/* radial-gradient(rgb(231, 241, 200), rgb(238, 244, 235)) */;
+    top: calc(var(--difference--) * 2);
+}
+
+#com ul {
+    font-size: 80%;
+    margin-top: -10px;
+}
+
+#com svg {
+    transform: scale(2);
+}
+
+#food-intro, #method-nutr {
+    display: flex;
+    margin-top: 25px;
+    column-gap: 5%;
+    margin-left: 15px;
+    margin-right: 15px;
+    justify-content: center;
+}
+
+#method-nutr {
+    flex-direction: column;
+}
+
+#food-intro p {
+    text-align: justify;
+}
+
+#results {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#map {
+    margin-left: 10px;
+    height: 45vh;
+    width: 60vw;
+}
+
+#about {
+    background-color: var(--main-color--);
+    line-height: var(--height-of-line--);
+    top: calc(var(--difference--) * 1);
+    text-align: center;
+    z-index: 1;
+}
+
+#title {
+    margin-top: 20px;
+}
+
+#map-start {
+    background-image: url("../images_and_videos/Avocado_and_Egg_Multi\ grain_toast_2.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    
+    position: relative;
+    background-color: black;
+    top: var(--difference--);
+    text-align: center;
+    color: white;
+    width: 100vw;
+    padding-top: 10px;
+    padding-right: 60px;
+    padding-left: 60px;
+}
+
+#map-results {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+#all-recipes {
+    grid-area: recipes;
+    padding-top: 60px;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 3rem;
+    overflow-y: scroll
+}
+
+#all-recipes div {
+    text-align: center;
+    border: 1px ridge grey;
+    border-radius: 10px;
+    max-height: 25rem;
+    box-shadow: 12px 12px 15px 5px rgba(25, 24, 24, 0.65);
+    transition: all 300ms ease-in-out;
+}
+
+#all-recipes div:hover {
+    transform: scale(1.05);
+    background-color: white;
+}
+
+#all-browsing-recipes {
+    display: grid;
+    grid-template-areas: 'filtering recipes';
+    gap: 0 0;
+}
+
+#exercise-days {
+    width: 12%;
+}
+
+#override {
+    margin-left: 4%;
+    margin-top: 6%;
+}
+
+#payment-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1vw;
+}
+
+#payment-form input {
+    font-size: 1.5vw;
+}
+
+#coffee {
+    height: 70vh;
+}
+
+#map-things {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#override-text {
+    margin-right: 35%;
+    margin-top: 1%;
+    overflow-x: visible;
+}
+
+#home-every {
+    background: none;
+    background-color: black !important;
+}
+
+#form-page {
+    padding-top: 10px;
+}
+
+#about-form {
+    position: relative;
+    background-color: black;
+    top: var(--difference--);
+    text-align: center;
+    color: white;
+    width: 100vw;
+    padding-top: 10px;
+    padding-right: 60px;
+    padding-left: 60px;
+    z-index: 1 !important;
+}
+
+#about-form * {
+    position: relative;
+    z-index: 1;
+}
+
+#form-page input[type="number"] {
+    border-radius: 8px;
+}
+
+#expand-nav-btns {
+    background: none;
+    border: none;
+}
+
+#browse-start {
+    background-image: url("../images_and_videos/IMG_4127.jpg");
+    text-align: center;
+    color: white;
+}
+
+#browse-start p {
+    position: relative;
+    top: 3rem;
+}
+
+#browsing-title {
+    position: relative;
+    top: 2rem;
+}
+
+#info-start {
+    background-image: url("../images_and_videos/Spanish\ Chickpea\ and\ Almond\ Stew.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    color: white;
+}
+
+#searchbar {
+    font-size: 1rem;
+}
+
+#navigation {
+    position: absolute !important;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+    top: 0.8rem;
+    right: 0.8rem;
+    background-color: rgba(200, 200, 200, 0.6);
+    padding: 6px;
+    border-radius: 10px;
+    transform: scale(0.9);
+}
+
+#nav-btns button {
+    background-color: rgb(188, 222, 188) !important;
+    color: black;
+    border: none;
+}
+
+#not-found-page {
+    display: flex;
+    height: 75vh;
+    align-items: center;
+    justify-content: center;
+}
+
+#navigation button {
+    margin: 2px;
+    width: 4rem;
+    font-size: 0.8rem;
+}
+
+@media only screen and (max-width: 1000px) {
+    #navigation {
+        padding: 5px;
+        width: 8rem;
+    }
+
+    #navigation button {
+        width: 3.2rem;
+        font-size: 10px;
+    }
+
+    #parameters {
+        font-size: 1.5rem;
+    }
+
+    #searchbar {
+        font-size: 0.8rem;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    #searchbar {
+        font-size: 0.5rem;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    #searchbar {
+        font-size: 0.3rem;
+    }
+}

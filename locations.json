@@ -1,0 +1,86 @@
+[
+    {
+        "name": "Eurospin",
+        "longitude": 18.293213,
+        "latitude": 40.199527,
+        "city": "Martano"
+    },
+    {
+        "name": "Eurospin",
+        "longitude": 12.483974,
+        "latitude": 41.989249,
+        "city": "Roma"
+    },
+    {
+        "name": "CONAD",
+        "longitude": 18.053307,
+        "latitude": 40.37775,
+        "city": "Novoli"
+    },
+    {
+        "name": "Terra Nostra Di De Fazio Luciano",
+        "longitude": 16.422805,
+        "latitude": 39.111672,
+        "city": "Bianchi"
+    },
+    {
+        "name": "Conad",
+        "longitude": 17.244068,
+        "latitude": 40.785842,
+        "city": "Alberobello"
+    },
+    {
+        "name": "Lidl",
+        "longitude": 17.099024,
+        "latitude": 41.055856,
+        "city": "Mola di Bari"
+    },
+    {
+        "name": "CRAI",
+        "longitude": 14.607851,
+        "latitude": 36.951351,
+        "city": "Comiso"
+    },
+    {
+        "name": "CONAD",
+        "longitude": 14.457415,
+        "latitude": 40.758099,
+        "city": "Torre Annuziata"
+    },
+    {
+        "name": "Conad Superstore",
+        "longitude": 14.24955,
+        "latitude": 40.924146,
+        "city": "Casandrino"
+    },
+    {
+        "name": "CONAD",
+        "longitude": 12.884608,
+        "latitude": 38.01904,
+        "city": "Castellammare del Golfo"
+    },
+    {
+        "name": "Supermarceto Pam Express",
+        "longitude": 9.766867,
+        "latitude": 40.440919,
+        "city": "Sos Alinos"
+    },
+    {
+        "name": "Eurospin",
+        "longitude": 9.296606,
+        "latitude": 40.321711,
+        "city": "Nuoro"
+    },
+    {
+        "name": "Dettori Market",
+        "longitude": 9.682028,
+        "latitude": 40.717944,
+        "city": "Budoni"
+    },
+    {
+        "name": "Dettorimarket",
+        "longitude": 9.668544,
+        "latitude": 40.772248,
+        "city": "San Teodoro"
+    }
+]

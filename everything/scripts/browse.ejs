@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>S-HELP</title>
+        <!--Include Bootstrap library-->
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!--CSS-->
+        <link rel="stylesheet" href="/styles.css" type="text/css">
+        <!--Icon-->
+        <link rel="shortcut icon" type="image/x-icon" href="/../images_and_videos/Icon.png"/>
+    </head>
+    <body>
+        <div class="section" id="browse-start">
+            <h1 id="browsing-title">Browse Recipes</h1>
+            <p>In this part of the page you have the chance to explore all of the recipes that we provide for you. You can filter them out in order to figure out exactly what you are looking for.</p>
+        </div>
+        <main class="everything" id="all-browsing-recipes">
+            <nav id="parameters">
+                <input type="text" id="searchbar" placeholder="Search...">
+                <br>
+
+                <input id="healthy" type="checkbox" value="healthy">
+                <label for="healthy">Healthy</label>
+                <br>
+
+                <input id="quick" type="checkbox" value="quick">
+                <label for="quick">Quick</label>
+                <br>
+
+                <input id="seasonal" type="checkbox" value="seasonal">
+                <label for="seasonal">Seasonal</label>
+                <br>
+
+                <button onClick="populateBrowseSection(filterRecipes());" id="search-recipes" class="btn btn-info">Search</button>
+            </nav>
+            <div id="all-recipes">
+            </div>
+
+            <nav id="navigation">
+                <div id="nav-btns">
+                    <button class="btn btn-dark" onClick="changeScreen('index')">Home</button>
+                    <button class="btn btn-dark" onClick="changeScreen('form')">Form</button>
+                    <button class="btn btn-dark" onClick="changeScreen('info')">About</button>
+                    <button class="btn btn-dark" onClick="changeScreen('browse')">Browse</button>
+                    <button class="btn btn-dark" onClick="changeScreen('map')">Map</button>
+                    <% if (locals.hasOwnProperty("isLoggedIn") && isLoggedIn) { %>
+                        <button class="btn btn-dark" onClick="changeScreen('logout')">Logout</button>
+                    <%} else {%>
+                        <button class="btn btn-dark" onClick="changeScreen('login')">Login</button>
+                    <%}%>
+                </div>
+            </nav>
+        </main>
+        <footer>Acceleration lab team project of <a href="https://www.h-farm.com/en/h-farm-school" target="_blank">H-Farm International School</a></footer>
+
+        <!--template for a single recipe when browsing, styling -> a box with the title of the recipe and an image of it together with how much time it takes to cook and how sustainable it is-->
+        <template>
+            <div>
+                <h4>Title</h4>
+                <figure>
+                    <img src="">
+                    <figcaption>15 min</figcaption> <!--time needed to complete-->
+                    <figcaption>Sustainability</figcaption> <!--how sustainable the recipe is-->
+                </figure>
+            </div>
+        </template>
+        
+        <!--Include the jQuery library-->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!--include other js scripts-->
+        <script type="text/javascript" src="/variables.js"> </script>
+        <script type="text/javascript" src="/populate.js"> </script>
+        <script type="text/javascript" src="/script.js"></script>
+    </body>
+</html>

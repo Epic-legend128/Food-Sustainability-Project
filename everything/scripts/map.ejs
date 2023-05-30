@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>S-HELP</title>
+        <!--Include Bootstrap library-->
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!--CSS-->
+        <link rel="stylesheet" href="/styles.css" type="text/css">
+        <!--Icon-->
+        <link rel="shortcut icon" type="image/x-icon" href="/../images_and_videos/Icon.png"/>        
+        <!--Leaflet-->
+        <link type="text/css" rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
+        <script type="text/javascript" src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    </head>
+    <body>
+        
+        <main class="everything">
+            <div class="section" id="map-start">
+                <br>
+                <h1>Browse Recipes</h1>
+                <p>Take a look at the world map in order to figure out which place is closest to your location for you to shop in.<br>Closer distance, less fuel waste.</p>
+            </div>
+
+            <div class="section" id="map-things">
+                <h2 id="map-title" class="subtitle">Map</h2>
+                <p>The market closest to your location is <strong id="name"></strong>, in the city of <span id="city"></span>.</p>
+                <!--map-->
+                <div id="map"> </div>
+            </div>
+
+            <div class="section">
+                <h2 class="subtitle">Top 10 Closest Markets</h2>
+                <div id="map-results"> </div>
+            </div>
+            <br>
+            <nav id="navigation">
+                <div id="nav-btns">
+                    <button class="btn btn-dark" onClick="changeScreen('index')">Home</button>
+                    <button class="btn btn-dark" onClick="changeScreen('form')">Form</button>
+                    <button class="btn btn-dark" onClick="changeScreen('info')">About</button>
+                    <button class="btn btn-dark" onClick="changeScreen('browse')">Browse</button>
+                    <button class="btn btn-dark" onClick="changeScreen('map')">Map</button>
+                    <% if (locals.hasOwnProperty("isLoggedIn") && isLoggedIn) { %>
+                        <button class="btn btn-dark" onClick="changeScreen('logout')">Logout</button>
+                    <%} else {%>
+                        <button class="btn btn-dark" onClick="changeScreen('login')">Login</button>
+                    <%}%>
+                </div>
+            </nav>
+        </main>
+        <footer>Acceleration lab team project of <a href="https://www.h-farm.com/en/h-farm-school" target="_blank">H-Farm International School</a></footer>
+        
+        <!--Include the jQuery library-->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!--include other js scripts-->
+        <script type="text/javascript" src="/variables.js"> </script>
+        <script type="text/javascript" src="/script.js"></script>
+        <script type="text/javascript" src="/calc.js"></script>
+        <script type="text/javascript" src="/map.js"></script>
+    </body>
+</html>

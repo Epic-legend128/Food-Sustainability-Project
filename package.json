@@ -1,0 +1,21 @@
+{
+  "name": "food-sustainability-project",
+  "version": "1.0.0",
+  "description": "S-Help webpage",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Fotios Vaitsopoulos",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-session": "^2.0.0",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3",
+    "node-localstorage": "^2.2.1",
+    "stripe": "^12.6.0"
+  }
+}

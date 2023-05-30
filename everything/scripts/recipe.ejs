@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>S-HELP</title>
+        <!--Include Bootstrap library-->
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!--CSS-->
+        <link rel="stylesheet" href="/styles.css" type="text/css">
+        <!--Icon-->
+        <link rel="shortcut icon" type="image/x-icon" href="/../images_and_videos/Icon.png"/>
+    </head>
+    <body>
+        <main class="everything">
+            <nav id="navigation">
+                <div id="nav-btns">
+                    <a href="../index"><button class="btn btn-dark">Home</button></a>
+                    <a href="../form"><button class="btn btn-dark">Form</button></a>
+                    <a href="../info"><button class="btn btn-dark">About</button></a>
+                    <a href="../browse"><button class="btn btn-dark">Browse</button></a>
+                    <a href="../map"><button class="btn btn-dark">Map</button></a>
+                    <% if (isLoggedIn) { %>
+                        <a href="../logout"><button class="btn btn-dark">Logout</button></a>
+                    <%} else {%>
+                        <a href="../login"><button class="btn btn-dark">Login</button></a>
+                    <%}%>
+                </div>
+            </nav>
+            <br>
+            <br>
+            <br>
+            <h2 class="subtitle"><%- recipe.title %></h2>
+            <div style="text-align: center;">
+                <h5>Time: <%- recipe.time %> minutes</h5>
+            </div>
+            <div class="section" id="food-intro">
+                <div>
+                    <img class="side-img" alt="An image of the food" src=<%= recipe.image %> >
+                    <div></div>
+                </div>
+
+                <div>
+                    <div style="margin-top: 10px;">
+                        <table class="table table-sm table-bordered table-secondary table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Ingredient</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <% for (let i = 0; i<recipe.ingredients.length; i++) { %>
+                                <tr>
+                                    <td><%= recipe.ingredients[i].name %></td>
+                                    <% if (recipe.ingredients[i].quantity == 0 || recipe.ingredients[i].quantity == null) {%>
+                                        <td>-</td>
+                                    <% } else if (recipe.ingredients[i].unit != "-") { %>
+                                        <td><%= recipe.ingredients[i].quantity %> <%= recipe.ingredients[i].unit %></td>
+                                    <% } else { %>
+                                        <td><%= recipe.ingredients[i].quantity %></td>
+                                    <% } %>
+                                </tr>
+                            <% } %>
+                        </table>
+                        <ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="method-nutr" style="padding: 20px;">
+                <div>
+                    <table class="table table-bordered table-secondary table-hover table-responsive">
+                        <tr>
+                            <th class="table-dark">Nutrient</th>
+                            <%  for (let i in recipe.nutrients) {%>
+                                <td><%= i%></td>
+                            <% } %>
+                        </tr>
+
+                        <tr>
+                            <th class="table-dark">Quantity</th>
+                            <%  for (let i in recipe.nutrients) {%>
+                                <% if (recipe.nutrients[i] == null) {%>
+                                    <td>-</td>
+                                <% } else { %>
+                                    <td><%= recipe.nutrients[i] %></td>
+                                <% } %>
+                            <% } %>
+                        </tr>
+                    </table>
+                </div>
+
+                <div>
+                    <h3 class="subtitle">Method</h3>
+                    <p style="text-align: center;"><%- recipe.desc%></p>
+                    <br>
+                </div>
+            </div>
+        </main>
+        <footer>Acceleration lab team project of <a href="https://www.h-farm.com/en/h-farm-school" target="_blank">H-Farm International School</a></footer>
+        
+        <!--Include the jQuery library-->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!--include other js scripts-->
+        <script type="text/javascript" src="/variables.js"> </script>
+        <script type="text/javascript" src="/script.js"></script>
+    </body>
+</html>

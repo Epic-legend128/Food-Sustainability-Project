@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>S-HELP</title>
+        <!--Include Bootstrap library-->
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!--CSS-->
+        <link rel="stylesheet" href="/styles.css" type="text/css">
+        <!--Icon-->
+        <link rel="shortcut icon" type="image/x-icon" href="/../images_and_videos/Icon.png"/>
+    </head>
+    <body>
+        <main class="everything">
+            <br>
+            <h2 class="subtitle">Sign up</h2>
+            <form class="user-form" action="/signup" method="POST">
+                <div>
+                    <label for="username">Username: </label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <br>
+                <div>
+                    <label for="password">Password: </label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <br>
+                <input type="submit" value="Submit" class="btn btn-success">
+            </form>
+
+            <nav id="navigation">
+                <div id="nav-btns">
+                    <button class="btn btn-dark" onClick="changeScreen('index')">Home</button>
+                    <button class="btn btn-dark" onClick="changeScreen('form')">Form</button>
+                    <button class="btn btn-dark" onClick="changeScreen('info')">About</button>
+                    <button class="btn btn-dark" onClick="changeScreen('browse')">Browse</button>
+                    <button class="btn btn-dark" onClick="changeScreen('map')">Map</button>
+                    <% if (isLoggedIn) { %>
+                        <button class="btn btn-dark" href="/logout">Logout</button>
+                    <%} else {%>
+                        <button class="btn btn-dark" onClick="changeScreen('login')">Login</button>
+                    <%}%>
+                </div>
+            </nav>
+        </main>
+        <footer>Acceleration lab team project of <a href="https://www.h-farm.com/en/h-farm-school" target="_blank">H-Farm International School</a></footer>
+        
+        <!--Include the jQuery library-->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!--include other js scripts-->
+        <script type="text/javascript" src="/variables.js"> </script>
+        <script type="text/javascript" src="/script.js"></script>
+    </body>
+</html>
