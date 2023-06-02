@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 require('dotenv').config();
 
-mongoose.connect("mongodb+srv://"+process.env.USERNAME+":"+process.env.PASSWORD+"@cluster.rfww9rl.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://"+process.env.USERNAME+":"+process.env.PASSWORD+"@data.fvqv3iu.mongodb.net/", {
     useNewUrlParser: true
 });
 

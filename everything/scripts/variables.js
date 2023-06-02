@@ -5,7 +5,7 @@
     image: "", // url
     desc: "", //description,
     time: null, // estimated time to make
-    ingedients: [{name: "", quantity: null, unit: ""}], //name, quantity and unit of measurement
+    ingredients: [{name: "", quantity: null, unit: ""}], //name, quantity and unit of measurement
     nutrients: {calcium: null, proteins: null, calories: null, fats: null, carbs: null, saturates: null, sugars: null, salt: null, fibre: null}, // different nutrients
     seasons: [], //includes a list of all of the seasons it is naturaly produced in
     labels: [] // other labels, like healthy, unhealthy, quick etc
@@ -146,13 +146,31 @@ const recipes = [
         nutrients: {calories: "894kcal", fats: "46g", carbs: "104g", fiber: "17g", sugar: "17g", protein: "18g"},
         seasons: ["summer"],
         labels: ["healthy", "lunch", "dinner"]
+    },
+    {
+        title: "Yogurt Cup Desert",
+        image: "../images_and_videos/Easy_Yogurt_Cup_Dessert.jpg",
+        desc: "<ol><li>Mix the cream cheese, yogurt, honey and vanilla using whisk, a blender or a food processor. Stir in 1 Tbsp coconut flakes.</li><li>Line a small baking pan with parchment paper and spread the yogurt mixture inside.</li><li>Spread out the sliced berries over the yogurt and sprinkle some coconut flakes.</li><li>Freeze for at least 1 hour, or until firm, cut in pieces and enjoy!</li></ol>",
+        time: 70,
+        ingredients: [
+            {name: "Greek Yogurt", quantity: 1.5, unit: "cups"},
+            {name: "cream cheese", quantity: 2, unit: "tablespoons"},
+            {name: "strawberries, sliced lengthwise", quantity: 0.5, unit: "cup"},
+            {name: "blueberries or raspberries", quantity: 0, unit: "handfull"},
+            {name: "vanilla", quantity: 1, unit: "teaspoon"},
+            {name: "honey", quantity: 1.5, unit: "tablespoons"},
+            {name: "coconut flakes", quantity: 3, unit: "tablespoons"}
+        ],
+        nutrients: {proteins: "10g", calories: "133kcal", fats: "4g", carbs: "16g", saturates: "2g", sugars: "13g", fibre: "2g", sodium: "63mg"},
+        seasons: ["summer", "autumn"],
+        labels: ["healthy", "dessert"]
     }
     /* {
         title: "Healthy Oatmeal Cookies",
         image: "../images_and_videos/Healthy_Oatmeal_Cookies.jpg",
         desc: "",
         time: 0,
-        ingedients: [
+        ingredients: [
             {name: "coconut sugar", quantity: , unit: ""},
             {name: "maple syrup", quantity: , unit: ""},
             {name: "cinnamon", quantity: , unit: ""},
