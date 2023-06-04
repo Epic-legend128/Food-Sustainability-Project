@@ -132,6 +132,7 @@ table {
 .recipe-preview {
     width: 15vw;
     height: 42vh;
+    color: black;
 }
 
 .recipe-preview img {
@@ -215,6 +216,12 @@ table {
 
 #com svg {
     transform: scale(2);
+}
+
+#recipe-info {
+    padding-left: 20%;
+    padding-right: 20%;
+    text-align: justify;
 }
 
 #food-intro, #method-nutr {
@@ -304,6 +311,10 @@ table {
 #all-recipes div:hover {
     transform: scale(1.05);
     background-color: white;
+}
+
+#all-recipes a:hover {
+    text-decoration: none !important;
 }
 
 #all-browsing-recipes {

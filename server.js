@@ -47,6 +47,32 @@ function getRecipe(name) {
     });
 }
 
+function isSeasonal(seasons) {
+    let d = new Date();
+    let m = d.getMonth();
+    return ((m >= 11 || m<=2 && seasons.includes("winter")) || (m >= 3 && m<=5 && seasons.includes("spring")) || (m >= 6 && m<=8 && seasons.includes("summer")) || (m >= 9 && m<=10 && seasons.includes("autumn")));
+}
+
+function getAll(q) {
+    let r = [];
+
+    let healthy = q.healthy == "true" ? true : false;
+    let quick = q.quick == "true" ? true : false;
+    let seasonal = q.seasonal == "true" ? true : false;
+
+    return new Promise((resolve, reject) => {
+        Food.find({}).then(foods => {
+            Array.from(foods).forEach(x =>  {
+                if (q.search == undefined || (((x.labels.includes('healthy') && healthy) || !healthy) && ((x.time < 20 && quick) || !quick) && ((isSeasonal(x.seasons) && seasonal) || !seasonal) && (q.search.length == 0 || q.search.toLowerCase().includes(x.title.toLowerCase()) || q.search.toLowerCase().includes(x.desc.toLowerCase()) || x.desc.toLowerCase().includes(q.search.toLowerCase()) || x.title.toLowerCase().includes(q.search.toLowerCase())))) {
+                    r.push(x);
+                }
+            });
+        }).then(_ => {
+            resolve(r);
+        });
+    });
+}
+
 function loggedIn(session) {
     return (session.hasOwnProperty(KEYID) && session[KEYID] != "") ? 1 : 0;
 }
@@ -77,18 +103,29 @@ app.get("/logout", (req, res) => {
 
 //pages
 app.get("/:id", (req, res) => {
-    if (req.params.id == "login" && parseInt(loggedIn(req.session)))
+    if (req.params.id == "browse") {
+        getAll(req.query).then(foods => {
+            console.log(foods);
+            res.render("browse", {
+                isLoggedIn: parseInt(loggedIn(req.session)),
+                food: foods
+            });
+        });
+    }
+    else if (req.params.id == "login" && parseInt(loggedIn(req.session))) {
         res.redirect("/index");
+    }
     else if (names.includes(req.params.id)) {
         console.log("Went in with id of "+req.params.id);
         res.render(req.params.id, {
             isLoggedIn: parseInt(loggedIn(req.session))
         });
     }
-    else
-    res.render("notFound", {
-        isLoggedIn: parseInt(loggedIn(req.session))
-    });
+    else {
+        res.render("notFound", {
+            isLoggedIn: parseInt(loggedIn(req.session))
+        });
+    }
 });
 
 app.get("/browsing/:name", (req, res) => {
@@ -183,19 +220,3 @@ app.post("/charge", bodyparser.urlencoded(), (req, res) => {
 });
 
 app.listen(PORT, _ => console.log("Listening on port: " + PORT));
-
-
-
-
-/* var food = new Food();
-    food.title = "Gyros";
-    food.image = "https://www.kitchensanctuary.com/wp-content/uploads/2017/11/Pork-Gyros-with-Homemade-Tzatziki-square-FS.jpg";
-    food.desc = "This Greek traditional street-food is truly a masterpiece. It is very similar to the Turkish kebab but after tasting it you will soon realize why it has an entirely different name. That is of course due to their different flavours.";
-    food.time = 10;
-    food.ingredients = [{name: "pita", quantity: 1, unit: ""}, {name: "tomato", quantity: 1, unit: ""}, {name: "garlic", quantity: 1, unit: ""}];
-    food.nutrients = {calcium: 10, proteins: 10, calories: 10, fats: 10, carbs: 10, saturates: 10, sugars: 14, salt: 63, fibre: 52};
-    food.seasons = ['summer', 'winter', 'autumn', 'spring'];
-    food.labels = ["healthy"];
-    food.save().then(x => {
-        res.send("Hello world");
-}); */

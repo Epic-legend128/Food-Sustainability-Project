@@ -32,6 +32,10 @@ const foodSchema = {
     labels: {
         type: Array,
         required: "This field is required"
+    },
+    info: {
+        type: String,
+        required: "This field is required"
     }
 };
 

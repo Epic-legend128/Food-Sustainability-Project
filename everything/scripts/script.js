@@ -16,7 +16,6 @@ function changeScreen(page) {
 function changeBackground() {
     let name = location.href.substring(location.href.lastIndexOf('/')+1);
     let col = colors.hasOwnProperty(name) ? colors[name] : 0;
-    console.log(col);
     if (col.length == 1) {
         $(".everything").css('background-color', col[0]);
         $(".everything").css('background', "none");
@@ -28,14 +27,3 @@ function changeBackground() {
 }
 
 changeBackground();
-
-/* function addNavigation() {
-    let add;
-    if (!isLoggedIn())
-        add = '<button class="btn btn-dark" onClick="changeScreen(\'login\')">Login</button>';
-    else
-        add = '<button class="btn btn-dark" onClick="changeScreen(\'logout\')">Logout</button>';
-    console.log(add);
-    $('<nav id="navigation"><div id="nav-btns"><button class="btn btn-dark" onClick="changeScreen(\'index\')">Home</button><button class="btn btn-dark" onClick="changeScreen(\'form\')">Form</button><button class="btn btn-dark" onClick="changeScreen(\'info\')">About</button><button class="btn btn-dark" onClick="changeScreen(\'browse\')">Browse</button></div>'+add+'</nav>').appendTo(".everything");
-}
- */

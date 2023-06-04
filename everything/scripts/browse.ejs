@@ -32,9 +32,19 @@
                 <label for="seasonal">Seasonal</label>
                 <br>
 
-                <button onClick="populateBrowseSection(filterRecipes());" id="search-recipes" class="btn btn-info">Search</button>
+                <button onClick="filterRecipes();" id="search-recipes" class="btn btn-info">Search</button>
             </nav>
-            <div id="all-recipes"> </div>
+
+            <div id="all-recipes">
+                <% for (let i = 0; i<food.length; i++) {%>
+                    <a href=browsing/<%- food[i].title.replace(/ /gi, "%20") %>><div class="recipe-preview">
+                        <h6><%- food[i].title %></h6>
+                        <figure><img src=<%- food[i].image %> >
+                            <figcaption><%- food[i].time %> min</figcaption>
+                        </figure>
+                    </div></a>
+                <% } %>
+            </div>
 
             <nav id="navigation">
                 <div id="nav-btns">
