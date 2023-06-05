@@ -12,8 +12,16 @@
     </head>
     <body>
         <div class="section" id="browse-start">
-            <h1 id="browsing-title">Browse Recipes</h1>
-            <p>In this part of the page you have the chance to explore all of the recipes that we provide for you. You can filter them out in order to figure out exactly what you are looking for.</p>
+            <video autoplay muted loop class="background-video">
+                <source src="../images_and_videos/Browse_Video.mp4" type="video/mp4">
+            </video>
+
+            <div>
+                <h1 id="browsing-title">Browse Recipes</h1>
+            </div>
+            <div>
+                <p>In this part of the page you have the chance to explore all of the recipes that we provide for you. You can filter them out in order to figure out exactly what you are looking for.</p>
+            </div>
         </div>
         <main class="everything" id="all-browsing-recipes">
             <nav id="parameters">
@@ -45,22 +53,23 @@
                     </div></a>
                 <% } %>
             </div>
-
-            <nav id="navigation">
-                <div id="nav-btns">
-                    <button class="btn btn-dark" onClick="changeScreen('index')">Home</button>
-                    <button class="btn btn-dark" onClick="changeScreen('form')">Form</button>
-                    <button class="btn btn-dark" onClick="changeScreen('info')">About</button>
-                    <button class="btn btn-dark" onClick="changeScreen('browse')">Browse</button>
-                    <button class="btn btn-dark" onClick="changeScreen('map')">Map</button>
-                    <% if (locals.hasOwnProperty("isLoggedIn") && isLoggedIn) { %>
-                        <button class="btn btn-dark" onClick="changeScreen('logout')">Logout</button>
-                    <%} else {%>
-                        <button class="btn btn-dark" onClick="changeScreen('login')">Login</button>
-                    <%}%>
-                </div>
-            </nav>
         </main>
+        
+        <nav id="navigation">
+            <div id="nav-btns">
+                <button class="btn btn-dark" onClick="changeScreen('index')">Home</button>
+                <button class="btn btn-dark" onClick="changeScreen('form')">Form</button>
+                <button class="btn btn-dark" onClick="changeScreen('info')">About</button>
+                <button class="btn btn-dark" onClick="changeScreen('browse')">Browse</button>
+                <button class="btn btn-dark" onClick="changeScreen('map')">Map</button>
+                <% if (locals.hasOwnProperty("isLoggedIn") && isLoggedIn) { %>
+                    <button class="btn btn-dark" onClick="changeScreen('logout')">Logout</button>
+                <%} else {%>
+                    <button class="btn btn-dark" onClick="changeScreen('login')">Login</button>
+                <%}%>
+            </div>
+        </nav>
+
         <footer>Acceleration lab team project of <a href="https://www.h-farm.com/en/h-farm-school" target="_blank">H-Farm International School</a></footer>
 
         <!--template for a single recipe when browsing, styling -> a box with the title of the recipe and an image of it together with how much time it takes to cook and how sustainable it is-->

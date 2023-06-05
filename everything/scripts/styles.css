@@ -59,11 +59,13 @@ table {
 }
 
 .second-bg {
-    background: radial-gradient(rgb(238, 244, 235), rgb(218, 242, 218));
+    /*background: radial-gradient(rgb(238, 244, 235), rgb(218, 242, 218));*/
+    background-color: rgb(183, 208, 170);
 }
 
 .first-bg {
-    background: linear-gradient(35deg, rgb(238, 244, 235), rgb(188, 222, 188));
+    /* background: linear-gradient(35deg, rgb(238, 244, 235), rgb(188, 222, 188)); */
+    background-color: rgb(238, 244, 235);
 }
 
 .text-image {
@@ -126,7 +128,7 @@ table {
 
 .next-page {
     top: calc(3 * var(--difference--));
-    background: radial-gradient(rgb(200, 241, 200), rgb(238, 244, 235));
+    background: rgb(183, 208, 170);
 }
 
 .recipe-preview {
@@ -205,7 +207,7 @@ table {
 
 #com {
     text-align: center;
-    background-color: rgb(231, 241, 200)/* radial-gradient(rgb(231, 241, 200), rgb(238, 244, 235)) */;
+    background-color: rgb(231, 230, 224)/* radial-gradient(rgb(231, 241, 200), rgb(238, 244, 235)) */;
     top: calc(var(--difference--) * 2);
 }
 
@@ -276,7 +278,7 @@ table {
     background-color: black;
     top: var(--difference--);
     text-align: center;
-    color: white;
+    color: black;
     width: 100vw;
     padding-top: 10px;
     padding-right: 60px;
@@ -321,6 +323,8 @@ table {
     display: grid;
     grid-template-areas: 'filtering recipes';
     gap: 0 0;
+    position: relative;
+    z-index: 1;
 }
 
 #exercise-days {
@@ -399,9 +403,22 @@ table {
 }
 
 #browse-start {
-    background-image: url("../images_and_videos/IMG_4127.jpg");
+    background-color: black;
     text-align: center;
     color: white;
+}
+
+#browse-start div {
+    background-color: white;
+    opacity: 0.8;
+    color: black;
+    border-radius: 10px;
+    width: 80%;
+    text-align: center;
+}
+
+#browse-start div p {
+    font-size: 1.2rem;
 }
 
 #browse-start p {
@@ -415,7 +432,7 @@ table {
 }
 
 #info-start {
-    background-image: url("../images_and_videos/Spanish\ Chickpea\ and\ Almond\ Stew.jpg");
+    background-image: url("../images_and_videos/sustainable\ food.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     color: white;
