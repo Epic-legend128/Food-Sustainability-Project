@@ -7,8 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="paypal-button-container-P-57V80473S4567433SMR7DERY"></div>
-    <script src="https://www.paypal.com/sdk/js?client-id=AdwJ6L_K6LM2aJqEtvKW-n5cv4EG4YgsjtHnNdGanAgNQUINjy2VPzO4zqe0HsfEt8msJYVZqY76rP-L&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+    <div id="paypal-button-container-P-96T32121K02048519MR7D3LY"></div>
+    <script src="https://www.paypal.com/sdk/js?client-id=ARTBw4OB74oOaOJDhfagmtSOLSlbFmVixxQbeHS8CdlCOU8LM9VA_O0X8ctDuUb5HAA9lzLYzvMwr33j&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
     <script>
     paypal.Buttons({
         style: {
@@ -19,14 +19,23 @@
         },
         createSubscription: function(data, actions) {
             return actions.subscription.create({
-            plan_id: 'P-57V80473S4567433SMR7DERY'
+                plan_id: 'P-96T32121K02048519MR7D3LY'
             });
         },
         onApprove: function(data, actions) {
-            alert("Him"); 
-            console.log("ok");
+            const info = {
+                message: '625739756447687365513d3d'
+            };
+
+            fetch('/message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(info)
+            })
         }
-    }).render('#paypal-button-container-P-57V80473S4567433SMR7DERY');
+    }).render('#paypal-button-container-P-96T32121K02048519MR7D3LY'); 
     </script>
 </body>
 </html>

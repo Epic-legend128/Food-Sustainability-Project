@@ -6,9 +6,7 @@ const cookieSession = require("cookie-session");
 const User = mongoose.model("User");
 const Food = mongoose.model("Food");
 
-var paypal = require('paypal-rest-sdk');
-
-const names = ["donation", "info", "index", "form", "browse", "login", "notFound", "logout", "signup", "map", "upgrade"];
+const names = ["donation", "info", "index", "form", "browse", "login", "notFound", "logout", "signup", "map", "subscribe"];
 
 const bodyparser = require("body-parser");
 
@@ -31,11 +29,7 @@ app.use(express.static(path.join(__dirname, "/everything/scripts")));
 app.use(express.static(path.join(__dirname, "/everything")));
 app.set("views", path.join(__dirname, "/everything/scripts"));
 
-paypal.configure({
-    'mode': 'sandbox', 
-    'client_id': process.env.CLIENT_ID,
-    'client_secret': process.env.CLIENT_SECRET
-});
+app.use(express.json());
 
 //homepage
 app.get("/", (req, res) => {
@@ -53,6 +47,7 @@ app.get("/logout", (req, res) => {
 app.get("/:id", (req, res) => {
     if (req.params.id == "browse") {
         getAll(req.query).then(foods => {
+            console.log(foods);
             res.render("browse", {
                 isLoggedIn: parseInt(loggedIn(req.session)),
                 food: foods
@@ -63,6 +58,7 @@ app.get("/:id", (req, res) => {
         res.redirect("/index");
     }
     else if (names.includes(req.params.id)) {
+        console.log("Went in with id of "+req.params.id);
         res.render(req.params.id, {
             isLoggedIn: parseInt(loggedIn(req.session))
         });
@@ -122,25 +118,10 @@ app.get('/delete/:username/:password/:id', (req, res) => {
 
 app.post("/signup", bodyparser.urlencoded(), (req, res) => {
     var user = new User();
-    let exists = false;
-    User.find({}).then(x => {
-        for (let i = 0; i<x.length; i++) {
-            if (req.body.username == x[i].username) {
-                exists = true;
-                break;
-            }
-        }
-    }).then(_ => {
-        if (!exists) {
-            user.username = req.body.username;
-            user.password = req.body.password;
-            user.save().then(x => {
-                res.redirect("/login")
-            });
-        }
-        else {
-            res.redirect("/signup");
-        }
+    user.username = req.body.username;
+    user.password = req.body.password;
+    user.save().then(x => {
+        res.redirect("/login")
     });
 });
 
@@ -152,12 +133,14 @@ app.get("/so/you/should/add/this/recipe", (req, res) => {
     });
 });
 
-app.get("/upgrade", (req, res) => {
-    res.render("upgrade");
+app.get("/subscribe", (req, res) => {
+    res.render("subscribe");
 });
 
-app.post("/subscribe", (req, res) => {
-    res.render("subscribe");
+
+app.post("/message", (req, res) => {
+    console.log(decrypt(req.body.message))
+    res.send("Ok");
 });
 
 //everything else
@@ -187,6 +170,13 @@ app.post("/charge", bodyparser.urlencoded(), (req, res) => {
         res.send(err);
     }
 });
+
+function decrypt(message){
+    var decoded = Buffer.from(message, 'hex').toString();
+    var decodedString = atob(decoded);
+
+    return decodedString;
+}
 
 function userId(info) {
     return new Promise((resolve, reject) => {
