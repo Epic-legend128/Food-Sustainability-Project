@@ -44,7 +44,7 @@ app.get("/logout", (req, res) => {
 });
 
 //pages
-app.get("/:id", (req, res) => {
+app.get("/:id", async (req, res) => {
     if (req.params.id == "browse") {
         getAll(req.query).then(foods => {
             console.log(foods);
@@ -58,10 +58,15 @@ app.get("/:id", (req, res) => {
         res.redirect("/index");
     }
     else if (names.includes(req.params.id)) {
-        console.log("Went in with id of "+req.params.id);
-        res.render(req.params.id, {
-            isLoggedIn: parseInt(loggedIn(req.session))
-        });
+        if(req.params.id == "form" && (await User.findOne({ 'username': req.session.username })).subscription == "None"){
+            res.redirect("/subscribe");
+        }
+        else{
+            console.log("Went in with id of "+req.params.id);
+            res.render(req.params.id, {
+                isLoggedIn: parseInt(loggedIn(req.session))
+            });
+        }
     }
     else {
         res.render("notFound", {
@@ -90,6 +95,7 @@ app.post("/login", bodyparser.urlencoded(), (req, res) => {
     userId(req.body).then(id => {
         if (id != null) {
             req.session[KEYID] = id;
+            req.session.username = req.body.username;
 
             //after logging in
             res.redirect("/index");
@@ -120,6 +126,7 @@ app.post("/signup", bodyparser.urlencoded(), (req, res) => {
     var user = new User();
     user.username = req.body.username;
     user.password = req.body.password;
+    user.subscription = "None";
     user.save().then(x => {
         res.redirect("/login")
     });
@@ -134,13 +141,24 @@ app.get("/so/you/should/add/this/recipe", (req, res) => {
 });
 
 app.get("/subscribe", (req, res) => {
-    res.render("subscribe");
+    if(parseInt(loggedIn(req.session))){
+        res.render("subscribe");
+    }
+    else{
+        res.redirect("/login");
+    }
 });
 
-
-app.post("/message", (req, res) => {
-    console.log(decrypt(req.body.message))
-    res.send("Ok");
+app.post("/message", async (req, res) => {
+    if(parseInt(loggedIn(req.session))){
+        await User.updateOne({ username: req.session.username }, {
+            subscription: decrypt(req.body.message)
+        });
+        res.redirect("/");
+    }
+    else{
+        res.redirect("/login");
+    }
 });
 
 //everything else
