@@ -6,77 +6,19 @@ const cookieSession = require("cookie-session");
 const User = mongoose.model("User");
 const Food = mongoose.model("Food");
 
-const names = ["donation", "info", "index", "form", "browse", "login", "notFound", "logout", "signup", "map"];
+var paypal = require('paypal-rest-sdk');
+
+const names = ["donation", "info", "index", "form", "browse", "login", "notFound", "logout", "signup", "map", "upgrade"];
 
 const bodyparser = require("body-parser");
 
-var app = express();
+const app = express();
 require('dotenv').config();
 
 const stripe = require("stripe")(process.env.API_KEY);
 PORT = process.env.PORT || 80
 
 const KEYID = "whatIsTheNameOfTheUserForThisWebsite";
-
-function userId(info) {
-    return new Promise((resolve, reject) => {
-        User.find({}).then(allUsers => {
-            for (let i = 0; i<allUsers.length; i++) {
-                let x = allUsers[i];
-                if (x.username == info.username && x.password == info.password) {
-                    resolve(x._id);
-                }
-            }
-            resolve(null);
-        });
-    });
-}
-
-function getRecipe(name) {
-    let title = name.toLowerCase();
-    return new Promise((resolve, reject) => {
-        Food.find({}).then(allFoods => {
-            for (let i = 0; i<allFoods.length; i++) {
-                let x = allFoods[i];
-                if (x.title.toLowerCase() == title) {
-                    resolve(x);
-                }
-            }
-            resolve(null);
-        });
-    });
-}
-
-function isSeasonal(seasons) {
-    let d = new Date();
-    let m = d.getMonth();
-    return ((m >= 11 || m<=2 && seasons.includes("winter")) || (m >= 3 && m<=5 && seasons.includes("spring")) || (m >= 6 && m<=8 && seasons.includes("summer")) || (m >= 9 && m<=10 && seasons.includes("autumn")));
-}
-
-function getAll(q) {
-    let r = [];
-
-    let healthy = q.healthy == "true" ? true : false;
-    let quick = q.quick == "true" ? true : false;
-    let seasonal = q.seasonal == "true" ? true : false;
-
-    return new Promise((resolve, reject) => {
-        Food.find({}).then(foods => {
-            Array.from(foods).forEach(x =>  {
-                if (q.search == undefined || (((x.labels.includes('healthy') && healthy) || !healthy) && ((x.time < 20 && quick) || !quick) && ((isSeasonal(x.seasons) && seasonal) || !seasonal) && (q.search.length == 0 || q.search.toLowerCase().includes(x.title.toLowerCase()) || q.search.toLowerCase().includes(x.desc.toLowerCase()) || x.desc.toLowerCase().includes(q.search.toLowerCase()) || x.title.toLowerCase().includes(q.search.toLowerCase())))) {
-                    r.push(x);
-                }
-            });
-        }).then(_ => {
-            resolve(r);
-        });
-    });
-}
-
-function loggedIn(session) {
-    return (session.hasOwnProperty(KEYID) && session[KEYID] != "") ? 1 : 0;
-}
-
 app.set("view engine", "ejs");
 
 app.use(cookieSession({
@@ -88,6 +30,12 @@ app.use(cookieSession({
 app.use(express.static(path.join(__dirname, "/everything/scripts")));
 app.use(express.static(path.join(__dirname, "/everything")));
 app.set("views", path.join(__dirname, "/everything/scripts"));
+
+paypal.configure({
+    'mode': 'sandbox', 
+    'client_id': process.env.CLIENT_ID,
+    'client_secret': process.env.CLIENT_SECRET
+});
 
 //homepage
 app.get("/", (req, res) => {
@@ -191,6 +139,14 @@ app.get("/so/you/should/add/this/recipe", (req, res) => {
     });
 });
 
+app.get("/upgrade", (req, res) => {
+    res.render("upgrade");
+});
+
+app.post("/subscribe", (req, res) => {
+    res.render("subscribe");
+});
+
 //everything else
 app.get("*", (req, res) => {
     res.redirect("/notFound");
@@ -218,5 +174,64 @@ app.post("/charge", bodyparser.urlencoded(), (req, res) => {
         res.send(err);
     }
 });
+
+function userId(info) {
+    return new Promise((resolve, reject) => {
+        User.find({}).then(allUsers => {
+            for (let i = 0; i<allUsers.length; i++) {
+                let x = allUsers[i];
+                if (x.username == info.username && x.password == info.password) {
+                    resolve(x._id);
+                }
+            }
+            resolve(null);
+        });
+    });
+}
+
+function getRecipe(name) {
+    let title = name.toLowerCase();
+    return new Promise((resolve, reject) => {
+        Food.find({}).then(allFoods => {
+            for (let i = 0; i<allFoods.length; i++) {
+                let x = allFoods[i];
+                if (x.title.toLowerCase() == title) {
+                    resolve(x);
+                }
+            }
+            resolve(null);
+        });
+    });
+}
+
+function isSeasonal(seasons) {
+    let d = new Date();
+    let m = d.getMonth();
+    return ((m >= 11 || m<=2 && seasons.includes("winter")) || (m >= 3 && m<=5 && seasons.includes("spring")) || (m >= 6 && m<=8 && seasons.includes("summer")) || (m >= 9 && m<=10 && seasons.includes("autumn")));
+}
+
+function getAll(q) {
+    let r = [];
+
+    let healthy = q.healthy == "true" ? true : false;
+    let quick = q.quick == "true" ? true : false;
+    let seasonal = q.seasonal == "true" ? true : false;
+
+    return new Promise((resolve, reject) => {
+        Food.find({}).then(foods => {
+            Array.from(foods).forEach(x =>  {
+                if (q.search == undefined || (((x.labels.includes('healthy') && healthy) || !healthy) && ((x.time < 20 && quick) || !quick) && ((isSeasonal(x.seasons) && seasonal) || !seasonal) && (q.search.length == 0 || q.search.toLowerCase().includes(x.title.toLowerCase()) || q.search.toLowerCase().includes(x.desc.toLowerCase()) || x.desc.toLowerCase().includes(q.search.toLowerCase()) || x.title.toLowerCase().includes(q.search.toLowerCase())))) {
+                    r.push(x);
+                }
+            });
+        }).then(_ => {
+            resolve(r);
+        });
+    });
+}
+
+function loggedIn(session) {
+    return (session.hasOwnProperty(KEYID) && session[KEYID] != "") ? 1 : 0;
+}
 
 app.listen(PORT, _ => console.log("Listening on port: " + PORT));
