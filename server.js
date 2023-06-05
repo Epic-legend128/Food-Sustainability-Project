@@ -53,7 +53,6 @@ app.get("/logout", (req, res) => {
 app.get("/:id", (req, res) => {
     if (req.params.id == "browse") {
         getAll(req.query).then(foods => {
-            console.log(foods);
             res.render("browse", {
                 isLoggedIn: parseInt(loggedIn(req.session)),
                 food: foods
@@ -64,7 +63,6 @@ app.get("/:id", (req, res) => {
         res.redirect("/index");
     }
     else if (names.includes(req.params.id)) {
-        console.log("Went in with id of "+req.params.id);
         res.render(req.params.id, {
             isLoggedIn: parseInt(loggedIn(req.session))
         });
@@ -124,10 +122,25 @@ app.get('/delete/:username/:password/:id', (req, res) => {
 
 app.post("/signup", bodyparser.urlencoded(), (req, res) => {
     var user = new User();
-    user.username = req.body.username;
-    user.password = req.body.password;
-    user.save().then(x => {
-        res.redirect("/login")
+    let exists = false;
+    User.find({}).then(x => {
+        for (let i = 0; i<x.length; i++) {
+            if (req.body.username == x[i].username) {
+                exists = true;
+                break;
+            }
+        }
+    }).then(_ => {
+        if (!exists) {
+            user.username = req.body.username;
+            user.password = req.body.password;
+            user.save().then(x => {
+                res.redirect("/login")
+            });
+        }
+        else {
+            res.redirect("/signup");
+        }
     });
 });
 

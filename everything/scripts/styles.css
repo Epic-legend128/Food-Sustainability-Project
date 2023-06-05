@@ -348,6 +348,10 @@ table {
     font-size: 1.5vw;
 }
 
+#signup {
+    font-size: 1.2rem !important;
+}
+
 #coffee {
     height: 70vh;
 }
@@ -408,6 +412,10 @@ table {
     color: white;
 }
 
+#browse-start div:nth-last-of-type(2) {
+    width: max-content;
+}
+
 #browse-start div {
     background-color: white;
     opacity: 0.8;
@@ -415,20 +423,17 @@ table {
     border-radius: 10px;
     width: 80%;
     text-align: center;
+    margin: auto;
+}
+
+#browse-start div {
+    position: relative;
+    top: 2rem;
+    padding: 5px;
 }
 
 #browse-start div p {
     font-size: 1.2rem;
-}
-
-#browse-start p {
-    position: relative;
-    top: 3rem;
-}
-
-#browsing-title {
-    position: relative;
-    top: 2rem;
 }
 
 #info-start {
