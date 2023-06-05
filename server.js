@@ -105,7 +105,6 @@ app.get("/logout", (req, res) => {
 app.get("/:id", (req, res) => {
     if (req.params.id == "browse") {
         getAll(req.query).then(foods => {
-            console.log(foods);
             res.render("browse", {
                 isLoggedIn: parseInt(loggedIn(req.session)),
                 food: foods
@@ -116,7 +115,6 @@ app.get("/:id", (req, res) => {
         res.redirect("/index");
     }
     else if (names.includes(req.params.id)) {
-        console.log("Went in with id of "+req.params.id);
         res.render(req.params.id, {
             isLoggedIn: parseInt(loggedIn(req.session))
         });
