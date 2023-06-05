@@ -174,10 +174,25 @@ app.get('/delete/:username/:password/:id', (req, res) => {
 
 app.post("/signup", bodyparser.urlencoded(), (req, res) => {
     var user = new User();
-    user.username = req.body.username;
-    user.password = req.body.password;
-    user.save().then(x => {
-        res.redirect("/login")
+    let exists = false;
+    User.find({}).then(x => {
+        for (let i = 0; i<x.length; i++) {
+            if (req.body.username == x[i].username) {
+                exists = true;
+                break;
+            }
+        }
+    }).then(_ => {
+        if (!exists) {
+            user.username = req.body.username;
+            user.password = req.body.password;
+            user.save().then(x => {
+                res.redirect("/login")
+            });
+        }
+        else {
+            res.redirect("/signup");
+        }
     });
 });
 
