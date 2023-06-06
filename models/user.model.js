@@ -12,6 +12,10 @@ const userSchema = {
     subscription: {
         type: String,
         required: "This field is required"
+    },
+    subscriptionDate: {
+        type: String,
+        required: "This field is required"
     }
 };
 

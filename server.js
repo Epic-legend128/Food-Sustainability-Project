@@ -67,30 +67,45 @@ app.get("/:id", async (req, res) => {
         res.redirect("/index", {  subscription: (await User.findOne({ 'username': req.session.username })).subscription });
     }
     else if (names.includes(req.params.id)) {
-        if(req.params.id == "form" && (await User.findOne({ 'username': req.session.username })).subscription == "None"){
-            res.redirect("/subscribe");
-        }
-        else{
-            console.log("Went in with id of "+req.params.id);
-            if(parseInt(loggedIn(req.session))){
-                res.render(req.params.id, {
-                    isLoggedIn: parseInt(loggedIn(req.session)),
-                    subscription: (await User.findOne({ 'username': req.session.username })).subscription
-                });
+        if(req.params.id == "form"){
+            if((await User.findOne({ 'username': req.session.username })).subscription == "None"){
+                res.redirect("/subscribe");
             }
             else{
-                res.render(req.params.id, {
-                    isLoggedIn: parseInt(loggedIn(req.session)),
-                    subscription: "None"
-                });
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+                var yyyy = today.getFullYear();
+
+                today = mm + '/' + dd + '/' + yyyy;
+
+                const todayDate = new Date(today);
+                const subscriptionDate = new Date((await User.findOne({ 'username': req.session.username })).subscriptionDate);
+                
+                const diffTime = Math.abs(subscriptionDate - todayDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+
+                if(diffDays <= 0){
+                    await User.updateOne({ username: req.session.username }, {
+                        subscription: "None"
+                    });
+
+                    res.redirect("/subscribe");
+                }
             }
         }
-    }
-    else {
-        res.render("notFound", {
-            isLoggedIn: parseInt(loggedIn(req.session)),
-            subscription: (await User.findOne({ 'username': req.session.username })).subscription
-        });
+        if(parseInt(loggedIn(req.session))){
+            res.render(req.params.id, {
+                isLoggedIn: parseInt(loggedIn(req.session)),
+                subscription: (await User.findOne({ 'username': req.session.username })).subscription
+            });
+        }
+        else{
+            res.render(req.params.id, {
+                isLoggedIn: parseInt(loggedIn(req.session)),
+                subscription: "None"
+            });
+        }
     }
 });
 
@@ -162,6 +177,7 @@ app.post("/signup", bodyparser.urlencoded(), (req, res) => {
     user.username = req.body.username;
     user.password = req.body.password;
     user.subscription = "None";
+    user.subscription = "None";
     user.save().then(x => {
         res.redirect("/login")
     });
@@ -186,9 +202,26 @@ app.get("/subscribe", (req, res) => {
 
 app.post("/message", async (req, res) => {
     if(parseInt(loggedIn(req.session))){
+        const subscriptionType = decrypt(req.body.message);
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+
+        if(subscriptionType == "monthly"){
+            var mm = String(today.getMonth() + 1 + 1).padStart(2, '0'); 
+            var yyyy = today.getFullYear();
+        }
+        else{
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+            var yyyy = today.getFullYear() + 1;
+        }
+       
+        today = mm + '/' + dd + '/' + yyyy;
+        
         await User.updateOne({ username: req.session.username }, {
-            subscription: decrypt(req.body.message)
+            subscription: subscriptionType, subscriptionDate: today
         });
+
         res.redirect("/");
     }
     else{
