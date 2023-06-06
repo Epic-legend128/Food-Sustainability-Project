@@ -33,10 +33,18 @@ app.use(express.json());
 
 //homepage
 app.get("/", async (req, res) => {
-    res.render("index", {
-        isLoggedIn: parseInt(loggedIn(req.session)),
-        subscription: (await User.findOne({ 'username': req.session.username })).subscription
-    });
+    if(parseInt(loggedIn(req.session))){
+        res.render("index", {
+            isLoggedIn: parseInt(loggedIn(req.session)),
+            subscription: (await User.findOne({ 'username': req.session.username })).subscription
+        });
+    }
+    else{
+        res.render("index", {
+            isLoggedIn: parseInt(loggedIn(req.session)),
+            subscription: "None"
+        });
+    }
 });
 
 app.get("/logout", (req, res) => {
@@ -64,10 +72,18 @@ app.get("/:id", async (req, res) => {
         }
         else{
             console.log("Went in with id of "+req.params.id);
-            res.render(req.params.id, {
-                isLoggedIn: parseInt(loggedIn(req.session)),
-                subscription: (await User.findOne({ 'username': req.session.username })).subscription
-            });
+            if(parseInt(loggedIn(req.session))){
+                res.render(req.params.id, {
+                    isLoggedIn: parseInt(loggedIn(req.session)),
+                    subscription: (await User.findOne({ 'username': req.session.username })).subscription
+                });
+            }
+            else{
+                res.render(req.params.id, {
+                    isLoggedIn: parseInt(loggedIn(req.session)),
+                    subscription: "None"
+                });
+            }
         }
     }
     else {
@@ -82,11 +98,18 @@ app.get("/browsing/:name", async (req, res) => {
     if (req.params.name.length == 0) res.redirect("/browse", { subscription: (await User.findOne({ 'username': req.session.username })).subscription});
     getRecipe(req.params.name).then(async recipe => {
         if (recipe != null && recipe != undefined) {
-            res.render("recipe", {
-                isLoggedIn: parseInt(loggedIn(req.session)),     
-                recipe: recipe,
-                subscription: (await User.findOne({ 'username': req.session.username })).subscription
-            });
+            if(parseInt(loggedIn(req.session))){
+                res.render("recipe", {
+                    isLoggedIn: parseInt(loggedIn(req.session)),
+                    subscription: (await User.findOne({ 'username': req.session.username })).subscription
+                });
+            }
+            else{
+                res.render("recipe", {
+                    isLoggedIn: parseInt(loggedIn(req.session)),
+                    subscription: "None"
+                });
+            }
         }
         else {
             res.redirect("/notFound");
@@ -105,11 +128,18 @@ app.post("/login", bodyparser.urlencoded(), async (req, res) => {
             res.redirect("/index");
         }
         else {
-            res.render("login", {
-                incorrect: true,
-                isLoggedIn: 0,
-                subscription: (await User.findOne({ 'username': req.session.username })).subscription
-            });
+            if(parseInt(loggedIn(req.session))){
+                res.render("login", {
+                    isLoggedIn: parseInt(loggedIn(req.session)),
+                    subscription: (await User.findOne({ 'username': req.session.username })).subscription
+                });
+            }
+            else{
+                res.render("login", {
+                    isLoggedIn: parseInt(loggedIn(req.session)),
+                    subscription: "None"
+                });
+            }
         }
     });
 });
