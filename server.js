@@ -16,7 +16,7 @@ require('dotenv').config();
 const stripe = require("stripe")(process.env.API_KEY);
 PORT = process.env.PORT || 80
 
-const KEYID = "whatIsTheNameOfTheUserForThisWebsite";
+const KEYID = "whatIsTheNameOfTheUserForThisWebsite2";
 app.set("view engine", "ejs");
 
 app.use(cookieSession({
@@ -85,7 +85,9 @@ app.get("/:id", async (req, res) => {
                 const diffTime = Math.abs(subscriptionDate - todayDate);
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
 
-                if(diffDays <= 0){
+                console.log(diffDays)
+
+                if(diffDays <= 0){ 
                     await User.updateOne({ username: req.session.username }, {
                         subscription: "None"
                     });
@@ -177,7 +179,7 @@ app.post("/signup", bodyparser.urlencoded(), (req, res) => {
     user.username = req.body.username;
     user.password = req.body.password;
     user.subscription = "None";
-    user.subscription = "None";
+    user.subscriptionDate = "None";
     user.save().then(x => {
         res.redirect("/login")
     });
