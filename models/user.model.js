@@ -8,6 +8,10 @@ const userSchema = {
     password: {
         type: String,
         required: "This field is required"
+    },
+    subscription: {
+        type: String,
+        required: "This field is required"
     }
 };
 

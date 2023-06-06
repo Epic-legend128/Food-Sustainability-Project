@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select id="subscription-type" onchange="handleSubscriptionChange()">
+        <option value="monthly">Monthly</option>
+        <option value="yearly">Yearly</option>
+    </select>
+    
+    <div id="paypal-button-container"></div>
+    
+    <script src="https://www.paypal.com/sdk/js?client-id=ARTBw4OB74oOaOJDhfagmtSOLSlbFmVixxQbeHS8CdlCOU8LM9VA_O0X8ctDuUb5HAA9lzLYzvMwr33j&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+    <script>
+        function handleSubscriptionChange() {
+            const subscriptionType = document.getElementById("subscription-type").value;
+            const container = document.getElementById("paypal-button-container");
+        
+            container.innerHTML = "";
+        
+            if (subscriptionType === "monthly") {
+                createPayPalButton("P-96T32121K02048519MR7D3LY", "625739756447687365513d3d");
+            } else if (subscriptionType === "yearly") {
+                createPayPalButton("P-5SX73992UT2158921MR7GIVI", "65575668636d7835");
+            }
+        }
+
+        function createPayPalButton(planId, message) {
+            paypal.Buttons({
+                style: {
+                shape: 'rect',
+                color: 'gold',
+                layout: 'vertical',
+                label: 'subscribe'
+                },
+                createSubscription: function (data, actions) {
+                return actions.subscription.create({
+                    plan_id: planId
+                });
+                },
+                onApprove: function (data, actions) {
+                const info = {
+                    message: message
+                };
+        
+                fetch('/message', {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(info)
+                })
+                }
+            }).render('#paypal-button-container');
+        }
+ 
+        handleSubscriptionChange();
+    </script>
+  
+</body>
+</html>
