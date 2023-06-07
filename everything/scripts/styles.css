@@ -173,12 +173,13 @@ table {
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: left;
     height: 100%;
     width: 25vw;
     border: 1px ridge black;
-    text-align: center;
+    text-align: left;
     padding-top: 16%;
+    padding-left: 22%;
     grid-area: filtering;
     font-size: 2rem;
 }
