@@ -85,8 +85,6 @@ app.get("/:id", async (req, res) => {
                 const diffTime = Math.abs(subscriptionDate - todayDate);
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
 
-                console.log(diffDays)
-
                 if(diffDays <= 0){ 
                     await User.updateOne({ username: req.session.username }, {
                         subscription: "None"
@@ -223,8 +221,6 @@ app.post("/message", async (req, res) => {
         await User.updateOne({ username: req.session.username }, {
             subscription: subscriptionType, subscriptionDate: today
         });
-
-        res.redirect("/");
     }
     else{
         res.redirect("/login");
