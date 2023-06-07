@@ -33,15 +33,15 @@ app.use(express.json());
 
 //homepage
 app.get("/", async (req, res) => {
-    if(parseInt(loggedIn(req.session))){
+    if(loggedIn(req.session)) {
         res.render("index", {
-            isLoggedIn: parseInt(loggedIn(req.session)),
+            isLoggedIn: loggedIn(req.session),
             subscription: (await User.findOne({ 'username': req.session.username })).subscription
         });
     }
     else{
         res.render("index", {
-            isLoggedIn: parseInt(loggedIn(req.session)),
+            isLoggedIn: loggedIn(req.session),
             subscription: "None"
         });
     }
@@ -55,40 +55,22 @@ app.get("/logout", (req, res) => {
 //pages
 app.get("/:id", async (req, res) => {
     if (req.params.id == "browse") {
-        if(parseInt(loggedIn(req.session))){
-            getAll(req.query).then(async foods => {
-                console.log(foods);
-                res.render("browse", {
-                    isLoggedIn: parseInt(loggedIn(req.session)),
-                    food: foods,
-                    subscription: (await User.findOne({ 'username': req.session.username })).subscription
-                });
+        getAll(req.query).then(async foods => {
+            res.render("browse", {
+                isLoggedIn: loggedIn(req.session),
+                food: foods,
+                subscription: loggedIn(req.session) ? (await User.findOne({ 'username': req.session.username })).subscription : "None"
             });
-        }
-        else{
-            getAll(req.query).then(async foods => {
-                console.log(foods);
-                res.render("browse", {
-                    isLoggedIn: parseInt(loggedIn(req.session)),
-                    food: foods,
-                    subscription: "None"
-                });
-            });
-        }
+        });
     }
-    else if (req.params.id == "login" && parseInt(loggedIn(req.session))) {
-        if(parseInt(loggedIn(req.session))){
-            res.redirect("/index", {  subscription: (await User.findOne({ 'username': req.session.username })).subscription });
-        }
-        else{
-            res.redirect("/index", {  subscription: "None" });
-        }
+    else if (req.params.id == "login" && loggedIn(req.session)) {
+        res.redirect("/index", {  subscription: (await User.findOne({ 'username': req.session.username })).subscription });
     }
     else if (names.includes(req.params.id)) {
         if(req.params.id == "form") {
-            if(parseInt(loggedIn(req.session))){
+            if(loggedIn(req.session)) {
                 res.render(req.params.id, {
-                    isLoggedIn: parseInt(loggedIn(req.session)),
+                    isLoggedIn: loggedIn(req.session),
                     subscription: (await User.findOne({ 'username': req.session.username })).subscription
                 });
             }
@@ -120,18 +102,10 @@ app.get("/:id", async (req, res) => {
                 }
             }
         }
-        if(parseInt(loggedIn(req.session))){
-            res.render(req.params.id, {
-                isLoggedIn: parseInt(loggedIn(req.session)),
-                subscription: (await User.findOne({ 'username': req.session.username })).subscription
-            });
-        }
-        else{
-            res.render(req.params.id, {
-                isLoggedIn: parseInt(loggedIn(req.session)),
-                subscription: "None"
-            });
-        }
+        res.render(req.params.id, {
+            isLoggedIn: loggedIn(req.session),
+            subscription: loggedIn(req.session) ? (await User.findOne({ 'username': req.session.username })).subscription : "None"
+        });
     }
 });
 
@@ -139,19 +113,11 @@ app.get("/browsing/:name", async (req, res) => {
     if (req.params.name.length == 0) res.redirect("/browse", { subscription: (await User.findOne({ 'username': req.session.username })).subscription});
     getRecipe(req.params.name).then(async recipe => {
         if (recipe != null && recipe != undefined) {
-            if(parseInt(loggedIn(req.session))){
-                res.render("recipe", {
-                    isLoggedIn: parseInt(loggedIn(req.session)),
-                    recipe: recipe,
-                    subscription: (await User.findOne({ 'username': req.session.username })).subscription
-                });
-            }
-            else{
-                res.render("recipe", {
-                    isLoggedIn: parseInt(loggedIn(req.session)),
-                    subscription: "None"
-                });
-            }
+            res.render("recipe", {
+                isLoggedIn: loggedIn(req.session),
+                recipe: recipe,
+                subscription: loggedIn(req.session) ? (await User.findOne({ 'username': req.session.username })).subscription : "None"
+            });
         }
         else {
             res.redirect("/notFound");
@@ -170,15 +136,15 @@ app.post("/login", bodyparser.urlencoded(), async (req, res) => {
             res.redirect("/index");
         }
         else {
-            if(parseInt(loggedIn(req.session))){
+            if(loggedIn(req.session)) {
                 res.render("login", {
-                    isLoggedIn: parseInt(loggedIn(req.session)),
+                    isLoggedIn: loggedIn(req.session),
                     subscription: (await User.findOne({ 'username': req.session.username })).subscription
                 });
             }
             else{
                 res.render("login", {
-                    isLoggedIn: parseInt(loggedIn(req.session)),
+                    isLoggedIn: loggedIn(req.session),
                     subscription: "None"
                 });
             }
@@ -226,7 +192,7 @@ app.post("/signup", bodyparser.urlencoded(), (req, res) => {
 });
 
 app.get("/subscribe", (req, res) => {
-    if(parseInt(loggedIn(req.session))){
+    if(loggedIn(req.session)) {
         res.render("subscribe");
     }
     else{
@@ -235,7 +201,7 @@ app.get("/subscribe", (req, res) => {
 });
 
 app.post("/message", async (req, res) => {
-    if(parseInt(loggedIn(req.session))){
+    if(loggedIn(req.session)) {
         const subscriptionType = decrypt(req.body.message);
 
         var today = new Date();
