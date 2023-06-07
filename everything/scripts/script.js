@@ -17,10 +17,13 @@ function changeBackground() {
     let name = location.href.substring(location.href.lastIndexOf('/')+1);
     let col = colors.hasOwnProperty(name) ? colors[name] : 0;
     if (col.length == 1) {
+        console.log("Black");
         $(".everything").css('background-color', col[0]);
         $(".everything").css('background', "none");
     }
     else {
+        console.log("Non-black");
+        console.log(col);
         $(".everything").css('background-color', "none");
         $(".everything").css('background', "linear-gradient("+col[0]+","+col[1]+")");
     }

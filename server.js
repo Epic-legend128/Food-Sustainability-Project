@@ -59,7 +59,8 @@ app.get("/:id", async (req, res) => {
             console.log(foods);
             res.render("browse", {
                 isLoggedIn: parseInt(loggedIn(req.session)),
-                food: foods
+                food: foods,
+                subscription: (await User.findOne({ 'username': req.session.username })).subscription
             });
         });
     }
@@ -67,11 +68,11 @@ app.get("/:id", async (req, res) => {
         res.redirect("/index", {  subscription: (await User.findOne({ 'username': req.session.username })).subscription });
     }
     else if (names.includes(req.params.id)) {
-        if(req.params.id == "form"){
+        if(req.params.id == "form") {
             if((await User.findOne({ 'username': req.session.username })).subscription == "None"){
                 res.redirect("/subscribe");
             }
-            else{
+            else {
                 var today = new Date();
                 var dd = String(today.getDate()).padStart(2, '0');
                 var mm = String(today.getMonth() + 1).padStart(2, '0'); 
@@ -116,6 +117,7 @@ app.get("/browsing/:name", async (req, res) => {
             if(parseInt(loggedIn(req.session))){
                 res.render("recipe", {
                     isLoggedIn: parseInt(loggedIn(req.session)),
+                    recipe: recipe,
                     subscription: (await User.findOne({ 'username': req.session.username })).subscription
                 });
             }
@@ -174,20 +176,27 @@ app.get('/delete/:username/:password/:id', (req, res) => {
 
 app.post("/signup", bodyparser.urlencoded(), (req, res) => {
     var user = new User();
-    user.username = req.body.username;
-    user.password = req.body.password;
-    user.subscription = "None";
-    user.subscriptionDate = "None";
-    user.save().then(x => {
-        res.redirect("/login")
-    });
-});
-
-app.get("/so/you/should/add/this/recipe", (req, res) => {
-    Food.insertMany([
-
-    ]).then(_ => {
-        res.send("Done, now check the database");
+    let exists = false;
+    User.find({}).then(x => {
+        for (let i = 0; i<x.length; i++) {
+            if (req.body.username == x[i].username) {
+                exists = true;
+                break;
+            }
+        }
+    }).then(_ => {
+        if (!exists) {
+            user.username = req.body.username;
+            user.password = req.body.password;
+            user.subscription = "None";
+            user.subscriptionDate = "None";
+            user.save().then(x => {
+                res.redirect("/login")
+            });
+        }
+        else {
+            res.redirect("/signup");
+        }
     });
 });
 

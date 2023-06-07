@@ -3,7 +3,8 @@ const colors = {
     "info":  ["black"],
     "form":  ["black"],
     "login": ["rgb(218, 242, 218)", "rgb(238, 244, 235)"],
-    "browse":  ["rgb(218, 242, 218)", "rgb(238, 244, 235)"]
+    "browse":  ["rgb(218, 242, 218)", "rgb(238, 244, 235)"],
+    "subscribe":  ["rgb(218, 242, 218)", "rgb(238, 244, 235)"]
 };
 
 const locations = [
