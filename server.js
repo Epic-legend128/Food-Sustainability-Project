@@ -55,43 +55,68 @@ app.get("/logout", (req, res) => {
 //pages
 app.get("/:id", async (req, res) => {
     if (req.params.id == "browse") {
-        getAll(req.query).then(async foods => {
-            console.log(foods);
-            res.render("browse", {
-                isLoggedIn: parseInt(loggedIn(req.session)),
-                food: foods,
-                subscription: (await User.findOne({ 'username': req.session.username })).subscription
+        if(parseInt(loggedIn(req.session))){
+            getAll(req.query).then(async foods => {
+                console.log(foods);
+                res.render("browse", {
+                    isLoggedIn: parseInt(loggedIn(req.session)),
+                    food: foods,
+                    subscription: (await User.findOne({ 'username': req.session.username })).subscription
+                });
             });
-        });
+        }
+        else{
+            getAll(req.query).then(async foods => {
+                console.log(foods);
+                res.render("browse", {
+                    isLoggedIn: parseInt(loggedIn(req.session)),
+                    food: foods,
+                    subscription: "None"
+                });
+            });
+        }
     }
     else if (req.params.id == "login" && parseInt(loggedIn(req.session))) {
-        res.redirect("/index", {  subscription: (await User.findOne({ 'username': req.session.username })).subscription });
+        if(parseInt(loggedIn(req.session))){
+            res.redirect("/index", {  subscription: (await User.findOne({ 'username': req.session.username })).subscription });
+        }
+        else{
+            res.redirect("/index", {  subscription: "None" });
+        }
     }
     else if (names.includes(req.params.id)) {
         if(req.params.id == "form") {
-            if((await User.findOne({ 'username': req.session.username })).subscription == "None"){
-                res.redirect("/subscribe");
+            if(parseInt(loggedIn(req.session))){
+                res.render(req.params.id, {
+                    isLoggedIn: parseInt(loggedIn(req.session)),
+                    subscription: (await User.findOne({ 'username': req.session.username })).subscription
+                });
             }
-            else {
-                var today = new Date();
-                var dd = String(today.getDate()).padStart(2, '0');
-                var mm = String(today.getMonth() + 1).padStart(2, '0'); 
-                var yyyy = today.getFullYear();
-
-                today = mm + '/' + dd + '/' + yyyy;
-
-                const todayDate = new Date(today);
-                const subscriptionDate = new Date((await User.findOne({ 'username': req.session.username })).subscriptionDate);
-                
-                const diffTime = Math.abs(subscriptionDate - todayDate);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-
-                if(diffDays <= 0){ 
-                    await User.updateOne({ username: req.session.username }, {
-                        subscription: "None"
-                    });
-
+            else{
+                if((await User.findOne({ 'username': req.session.username })).subscription == "None"){
                     res.redirect("/subscribe");
+                }
+                else {
+                    var today = new Date();
+                    var dd = String(today.getDate()).padStart(2, '0');
+                    var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+                    var yyyy = today.getFullYear();
+    
+                    today = mm + '/' + dd + '/' + yyyy;
+    
+                    const todayDate = new Date(today);
+                    const subscriptionDate = new Date((await User.findOne({ 'username': req.session.username })).subscriptionDate);
+                    
+                    const diffTime = Math.abs(subscriptionDate - todayDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    
+                    if(diffDays <= 0){ 
+                        await User.updateOne({ username: req.session.username }, {
+                            subscription: "None"
+                        });
+    
+                        res.redirect("/subscribe");
+                    }
                 }
             }
         }
