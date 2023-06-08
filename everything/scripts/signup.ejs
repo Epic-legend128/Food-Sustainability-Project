@@ -14,7 +14,7 @@
         <main class="everything">
             <br>
             <h2 class="subtitle">Sign up</h2>
-            <form id="signup" class="user-form" action="/signup" method="POST">
+            <form class="user-form" action="/signup" method="POST">
                 <div>
                     <label for="username">Username: </label>
                     <input type="text" id="username" name="username" required>
@@ -23,23 +23,6 @@
                 <div>
                     <label for="password">Password: </label>
                     <input type="password" id="password" name="password" required>
-                </div>
-                <br>
-                <p>Pay an amount of 3 euros per month for all of our site features</p>
-                <div>
-                    <label for="card">Credit Card</label>
-                    <input name="card" type="number" placeholder="Card number">
-                </div>
-                <br>
-                <div>
-                    <label for="cvc">CVC</label>
-                    <input name="cvc" type="number" placeholder="CVC">
-                </div>
-                <br>
-                <div>
-                    <label for="date">MM/YY</label>
-                    <input name="month" type="number" placeholder="MM" min="0" max="99">
-                    <input name="year" type="number" placeholder="YY" min="0" max="99">
                 </div>
                 <br>
                 <input type="submit" value="Submit" class="btn btn-success">
