@@ -18,7 +18,7 @@ const options = {
 };
 
 function changeMapView(lat, long) {
-    map.setView([lat, long], 12);
+    map.setView([lat, long], 15);
 }
 
 function success(temp) {

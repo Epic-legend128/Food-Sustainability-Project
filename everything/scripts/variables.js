@@ -265,6 +265,72 @@ const locations = [
         "longitude": 14.51089,
         "latitude": 41.746871,
         "city": "Saltico"
+    },
+    {
+        "name": "Vendraminetto Giancarlo Osteria Alimentari",
+        "longitude": 12.412032462155482,
+        "latitude": 45.57159557896536,
+        "city": "Roncade"
+    },
+    {
+        "name": "CONAD",
+        "longitude": 12.364886912092302,
+        "latitude": 45.58079227686303,
+        "city": "Quarto d'Altino"
+    },
+    {
+        "name": "iN's Mercato S.p.a",
+        "longitude": 12.364993600059375,
+        "latitude": 45.582273897717734,
+        "city": "Quarto d'altino"
+    },
+    {
+        "name": "Distributore automatico prodotti alimentari Caseificio Zanchetta",
+        "longitude": 12.36778515773176,
+        "latitude": 45.58129993623964,
+        "city": "Quarto d'Altino"
+    },
+    {
+        "name": "Panificio Spiga d'Oro",
+        "longitude": 12.36507505773176,
+        "latitude": 45.57577372189237,
+        "city": "Quarto d'Altino"
+    },
+    {
+        "name": "Maxì",
+        "longitude": 12.451674461616584,
+        "latitude": 45.61848735650085,
+        "city": "Meolo"
+    },
+    {
+        "name": "Vega (Soc.Coop.R.L.)",
+        "longitude": 12.351875392306132,
+        "latitude": 45.58168477970011,
+        "city": "Quarto D'altino VE"
+    },
+    {
+        "name": "Ghiaccio Facile di Premium Italia srl",
+        "longitude": 12.349841069429198,
+        "latitude": 45.58057546905052,
+        "city": "Quarto D'altino"
+    },
+    {
+        "name": "Prix Quality",
+        "longitude": 12.354754876405728,
+        "latitude": 45.58448010242834,
+        "city": "Quarto D'altino VE"
+    },
+    {
+        "name": "Gelo srl",
+        "longitude": 12.354733418733339,
+        "latitude": 45.58350396954286,
+        "city": "Quarto D'altino VE"
+    },
+    {
+        "name": "verdura e frutta",
+        "longitude": 12.305768284773974,
+        "latitude": 45.60176942446254,
+        "city": "Casale sul Sile"
     }
 ];
 
