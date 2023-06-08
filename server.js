@@ -74,8 +74,8 @@ app.get("/:id", async (req, res) => {
                     subscription: (await User.findOne({ 'username': req.session.username })).subscription
                 });
             }
-            else{
-                if((await User.findOne({ 'username': req.session.username })).subscription == "None"){
+            else {
+                if(!loggedIn(req.session) || (await User.findOne({ 'username': req.session.username })).subscription == "None") {
                     res.redirect("/subscribe");
                 }
                 else {
