@@ -533,6 +533,51 @@ table {
 
 @media only screen and (max-width: 500px) {
     #searchbar {
-        font-size: 0.3rem;
+        font-size: 5px;
+    }
+}
+
+@media (pointer:none), (pointer:coarse) {
+    #navigation {
+        width: min-content;
+        padding: 5px;
+        right: 0;
+    }
+
+    #navigation button {
+        width: 5rem;
+        font-size: 15px;
+    }
+
+    #all-recipes {
+        justify-content: start !important;
+        align-items: start !important;
+        height: 60vh !important;
+        overflow-y: scroll;
+    }
+
+    #subscription-type {
+        width: 30vw;
+    }
+
+    .everything {
+        min-height: none !important;
+    }
+
+    .recipe-preview {
+        height: 15vh !important;
+    }
+
+    .recipe-preview img {
+        height: 10vh;
+    }
+
+    .format-images {
+        
+        height: 21vh !important;
+    }
+
+    .section {
+        min-height: 20vh;
     }
 }
