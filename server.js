@@ -100,10 +100,12 @@ app.get("/:id", async (req, res) => {
                 }
             }
         }
-        res.render(req.params.id, {
-            isLoggedIn: loggedIn(req.session),
-            subscription: loggedIn(req.session) ? (await User.findOne({ 'username': req.session.username })).subscription : "None"
-        });
+        else{
+            res.render(req.params.id, {
+                isLoggedIn: loggedIn(req.session),
+                subscription: loggedIn(req.session) ? (await User.findOne({ 'username': req.session.username })).subscription : "None"
+            });
+        }
     }
 });
 
