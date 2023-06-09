@@ -38,9 +38,11 @@
                 <h5>Time: <%- recipe.time %> minutes</h5>
             </div>
 
+            <% if (recipe.info != "") { %>
             <div class="section" id="recipe-info">
                 <p><%- recipe.info %></p>
             </div>
+            <% } %>
 
             <div class="section" id="food-intro">
                 <div>
