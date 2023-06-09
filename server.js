@@ -321,4 +321,4 @@ function loggedIn(session) {
     return (session.hasOwnProperty(KEYID) && session[KEYID] != "") ? 1 : 0;
 }
 
-app.listen(process.env.PORT || 3000, _ => console.log("Listening on port: " + PORT));
+app.listen(process.env.PORT || 3000, _ => console.log("Listening on port: " + process.env.PORT));
