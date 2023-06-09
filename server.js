@@ -96,8 +96,6 @@ app.get("/:id", async (req, res) => {
                         await User.updateOne({ username: req.session.username }, {
                             subscription: "None"
                         });
-    
-                        res.redirect("/subscribe");
                     }
                 }
             }
