@@ -54,7 +54,7 @@
     <script type="text/javascript" src="/variables.js"> </script>
     <script type="text/javascript" src="/script.js"></script>
     
-    <script src="https://www.paypal.com/sdk/js?client-id=ARTBw4OB74oOaOJDhfagmtSOLSlbFmVixxQbeHS8CdlCOU8LM9VA_O0X8ctDuUb5HAA9lzLYzvMwr33j&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AUPYx0I0HqUy_QlJpFrFUvqBSpXNfIH9O7PkGGMf-ffVYlAc_WGP07Po5O7D8feG9h8J9k8BQlL1BtUF&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
     <script>
         function handleSubscriptionChange() {
             const subscriptionType = document.getElementById("subscription-type").value;
@@ -63,9 +63,9 @@
             container.innerHTML = "";
         
             if (subscriptionType === "monthly") {
-                createPayPalButton("P-96T32121K02048519MR7D3LY", "625739756447687365513d3d");
+                createPayPalButton("P-3VE56647UA693744KMSBWQJA", "625739756447687365513d3d");
             } else if (subscriptionType === "yearly") {
-                createPayPalButton("P-5SX73992UT2158921MR7GIVI", "65575668636d7835");
+                createPayPalButton("P-6YF333105D737002AMSBWSLY", "65575668636d7835");
             }
         }
 
@@ -78,9 +78,9 @@
                 label: 'subscribe'
                 },
                 createSubscription: function (data, actions) {
-                return actions.subscription.create({
-                    plan_id: planId
-                });
+                    return actions.subscription.create({
+                        plan_id: planId
+                    });
                 },
                 onApprove: function (data, actions) {
                 const info = {
