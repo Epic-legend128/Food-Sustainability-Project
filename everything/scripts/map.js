@@ -46,8 +46,10 @@ function success(temp) {
 
 function error(err) {
     let url = new URL(location.href);
-    if (url.protocol == "http") {
-        url.protocol = "https";
+    console.log(url);
+    if (url.protocol == "http:") {
+        url.protocol = "https:";
+        console.log(url);
         location.href = url.href;
     }
     console.warn("ERROR "+err.code+": "+err.message);
