@@ -47,6 +47,8 @@ function success(temp) {
 function error(err) {
     console.warn("ERROR "+err.code+": "+err.message);
     alert("There was an error trying to access your location");
+    $("#map-things p").text("We couldn't access your location to show to you the nearest shop for marketing");
+    $(".section:nth-last-of-type(1)").hide();
 }
 
 navigator.geolocation.getCurrentPosition(success, error, options);

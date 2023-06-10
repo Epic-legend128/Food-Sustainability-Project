@@ -357,19 +357,3 @@ var heightFactor = FROMCM;
 var weightFactor = FROMKG;
 
 const l = 1000; // helping variable for the lose and gain function
-
-/*
-//basic tempate
-{
-    title: "", //title
-    image: "", // url
-    desc: "", //description,
-    time: null, // estimated time to make
-    ingredients: [{name: "", quantity: null, unit: ""}], //name, quantity and unit of measurement
-    nutrients: {calcium: null, proteins: null, calories: null, fats: null, carbs: null, saturates: null, sugars: null, salt: null, fibre: null}, // different nutrients
-    seasons: [], //includes a list of all of the seasons it is naturaly produced in
-    labels: [] // other labels, like healthy, unhealthy, quick etc
-}
-
-{name: "", quantity: null, unit: ""}
-*/
