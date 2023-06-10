@@ -331,8 +331,21 @@ const locations = [
         "longitude": 12.305768284773974,
         "latitude": 45.60176942446254,
         "city": "Casale sul Sile"
-    }
+    },
+    {
+        "name": "NaturaSì",
+        "longitude": 12.31222897593685,
+        "latitude": 45.87911591367907,
+        "city": "Conegliano"
+    },
+    {
+        "name": "NaturaSi",
+        "longitude": 12.373528556202013,
+        "latitude": 45.62755125856721,
+        "city": "Musestre di Roncade"
+    },
 ];
+
 
 const RADIUS = 6371; // radius of the earth
 

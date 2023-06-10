@@ -1,4 +1,4 @@
-const map = L.map('map').setView([0, 0], 12);
+const map = L.map('map').setView([0, 0], 1);
 
 const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 const tilesUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -6,8 +6,9 @@ const tiles = L.tileLayer(tilesUrl, {attribution});
 tiles.addTo(map);
 
 let markers = [];
-for (let i = 0; i<10; i++) {
-    markers.push(L.marker([0, 0]).addTo(map));
+for (let i = 0; i<locations.length; i++) {
+    markers.push(L.marker([locations[i].latitude, locations[i].longitude]).addTo(map));
+    markers[i].bindPopup(locations[i].name);
 }
 
 
