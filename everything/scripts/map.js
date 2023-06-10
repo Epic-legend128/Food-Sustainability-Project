@@ -45,6 +45,11 @@ function success(temp) {
 }
 
 function error(err) {
+    let url = new URL(location.href);
+    if (url.protocol == "http") {
+        url.protocol = "https";
+        location.href = url.href;
+    }
     console.warn("ERROR "+err.code+": "+err.message);
     alert("There was an error trying to access your location");
     $("#map-things p").text("We couldn't access your location to show to you the nearest shop for marketing");
